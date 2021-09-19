@@ -16,4 +16,4 @@ The code will be uploaded soon.
 | DUTS-test| 0.900 | 0.871 |0.861 | 0.897 | 0.936 | 0.033|
 
 ## Saliency maps
-The saliency maps of our network can be found at [Baidu Netdisk](https://pan.baidu.com/s/1lwk7xPFshcWfhaTj-ZfLVA) (code:bipg) or [Google Drive](https://drive.google.com/file/d/1RFUL_NrHX3_NR0GLj2sTi0R3nNTIyL1F/view?usp=sharing).
+The saliency maps produced by our network can be found at [Baidu Netdisk](https://pan.baidu.com/s/1lwk7xPFshcWfhaTj-ZfLVA) (code:bipg) or [Google Drive](https://drive.google.com/file/d/1RFUL_NrHX3_NR0GLj2sTi0R3nNTIyL1F/view?usp=sharing).
