@@ -13,6 +13,7 @@ Network for Salient Object Detection”, accepted by IEEE Transactions on Multim
 
 -Please download the pretrained model for BIPG into `model` folder, which can be found at ([Baidu Netdisk](https://pan.baidu.com/s/1KHbTmHm_0VY8eCc-R6SDHg ) (code:sysu) or [Google Drive](https://drive.google.com/file/d/1cJzwzeXJPB5G2IOccbX5rIRu56zykL5C/view?usp=sharing))
 
+-Run test.py
 
 ## Quantitative Performance
 |       | F_measure (max) | F_measure (avg) | weight F_measure | S_measure | E_measure | MAE|
