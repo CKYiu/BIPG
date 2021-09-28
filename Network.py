@@ -93,6 +93,7 @@ class BIPGNet(nn.Module):
             nn.Conv2d(256 * 3, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
 
+        # SDU
         self.pr1_1 = nn.Sequential(
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
@@ -107,13 +108,13 @@ class BIPGNet(nn.Module):
             nn.Conv2d(256, 1, kernel_size=1)
         )
 
+        # SDU
         self.pr2_1 = nn.Sequential(
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
         self.pr2_2 = nn.Sequential(
             nn.Conv2d(256, 1, kernel_size=1)
         )
-
         self.pe2_1 = nn.Sequential(
             nn.Conv2d(1, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU(),
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
@@ -122,6 +123,7 @@ class BIPGNet(nn.Module):
             nn.Conv2d(256, 1, kernel_size=1)
         )
 
+        # SDU
         self.pr3_1 = nn.Sequential(
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
@@ -136,6 +138,7 @@ class BIPGNet(nn.Module):
             nn.Conv2d(256, 1, kernel_size=1)
         )
 
+        # SDU
         self.pr4_1 = nn.Sequential(
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
