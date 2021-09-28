@@ -26,5 +26,3 @@ class Resnet(nn.Module):
         layer3 = self.layer3(layer2)
         layer4 = self.layer4(layer3)
         return layer4
-
-

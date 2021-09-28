@@ -27,14 +27,6 @@ class BIG(nn.Module):
         self.conv = nn.Sequential(nn.Conv2d(channel, channel, kernel_size=3, padding=1),
                                   nn.GroupNorm(32, channel), nn.PReLU())
 
-        # self.conv1 = nn.Sequential(nn.Conv2d(channel // 2, channel // 2, kernel_size=1),
-        #                           nn.GroupNorm(32, channel // 2), nn.PReLU())
-        # self.conv2 = nn.Sequential(nn.Conv2d(channel // 2, channel // 2, kernel_size=1),
-        #                            nn.GroupNorm(32, channel // 2), nn.PReLU())
-        # self.conv3 = nn.Sequential(nn.Conv2d(channel // 2, channel // 2, kernel_size=1),
-        #                            nn.GroupNorm(32, channel // 2), nn.PReLU())
-        # self.conv4 = nn.Sequential(nn.Conv2d(channel // 2, channel // 2, kernel_size=1),
-        #                            nn.GroupNorm(32, channel // 2), nn.PReLU())
 
         self.channel = channel
         self.weight = nn.Softmax(dim=1)
@@ -78,7 +70,6 @@ class BIPGNet(nn.Module):
         self.layer3 = resnet.layer3
         self.layer4 = resnet.layer4
 
-        # skip connection
         self.down4 = nn.Sequential(
             nn.Conv2d(2048, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
@@ -91,9 +82,6 @@ class BIPGNet(nn.Module):
         self.down1 = nn.Sequential(
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
-        # self.glob = nn.Sequential(
-        #     nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
-        # )
 
         self.fuse1 = nn.Sequential(
             nn.Conv2d(256 * 3, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
@@ -104,11 +92,6 @@ class BIPGNet(nn.Module):
         self.fuse3 = nn.Sequential(
             nn.Conv2d(256 * 3, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
         )
-        # self.fuse4 = nn.Sequential(
-        #     nn.Conv2d(256 * 3, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
-        # )
-
-
 
         self.pr1_1 = nn.Sequential(
             nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
@@ -167,39 +150,9 @@ class BIPGNet(nn.Module):
             nn.Conv2d(256, 1, kernel_size=1)
         )
 
-        # self.pr5_1 = nn.Sequential(
-        #     nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU()
-        # )
-        # self.pr5_2 = nn.Sequential(
-        #     nn.Conv2d(256, 1, kernel_size=1)
-        # )
-        # self.pe5_1 = nn.Sequential(
-        #     nn.Conv2d(1, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU(),
-        #     nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.GroupNorm(32, 256), nn.PReLU(),
-        # )
-        # self.pe5_2 = nn.Sequential(
-        #     nn.Conv2d(256, 1, kernel_size=1)
-        # )
-
         self.BIG1 = BIG(256)
         self.BIG2 = BIG(256)
         self.BIG3 = BIG(256)
-        # self.BIG4 = BIG(256)
-        #
-        # self.CFS3_2 = CFSModule(128)
-        # self.CFS3_1 = CFSModule(128)
-        #
-        # self.CFS2_1 = CFSModule(128)
-        #
-        # self.CFS43_21 = CFSModule(128)
-        # self.CFS42_31 = CFSModule(128)
-        # self.CFS32_41 = CFSModule(128)
-
-        # self.weight = nn.Softmax(dim=1)
-        # self.gamma = nn.Parameter(torch.zeros(1))
-
-        # self.epsilon = 1e-4
-
 
     def forward(self, x):
         layer0 = self.layer0(x)
@@ -212,16 +165,7 @@ class BIPGNet(nn.Module):
         down3 = self.down3(layer3)
         down2 = self.down2(layer2)
         down1 = self.down1(layer1)
-        # glob = self.glob(down4)
 
-        # first stage
-        # pr1_1 = self.pr1_1(glob)
-        # pr1_2 = self.pr1_2(pr1_1)
-        # pe1_1 = self.pe1_1(pr1_2)
-        # pe1_2 = self.pe1_2(pe1_1)
-        #
-        # fuse1 = self.fuse1(torch.cat((down4, pr1_1, pe1_1), 1))
-        # nfuse1 = self.BIG1(fuse1, pe1_2)
         pr1_1 = self.pr1_1(down4)
         pr1_2 = self.pr1_2(pr1_1)
         pe1_1 = self.pe1_1(pr1_2)
@@ -261,12 +205,10 @@ class BIPGNet(nn.Module):
         pr2 = F.interpolate(pr2_2, size=x.size()[2:], mode='bilinear', align_corners=True)
         pr3 = F.interpolate(pr3_2, size=x.size()[2:], mode='bilinear', align_corners=True)
         pr4 = F.interpolate(pr4_2, size=x.size()[2:], mode='bilinear', align_corners=True)
-        # pr5 = F.interpolate(pr5_2, size=x.size()[2:], mode='bilinear', align_corners=True)
 
         pe1_2 = F.interpolate(pe1_2, size=x.size()[2:], mode='bilinear', align_corners=True)
         pe2_2 = F.interpolate(pe2_2, size=x.size()[2:], mode='bilinear', align_corners=True)
         pe3_2 = F.interpolate(pe3_2, size=x.size()[2:], mode='bilinear', align_corners=True)
         pe4_2 = F.interpolate(pe4_2, size=x.size()[2:], mode='bilinear', align_corners=True)
-        # pe5_2 = F.interpolate(pe5_2, size=x.size()[2:], mode='bilinear', align_corners=True)
 
         return pr1, pr2, pr3, pr4, pe1_2, pe2_2, pe3_2, pe4_2

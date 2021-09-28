@@ -37,5 +37,3 @@ class test_dataset:
         with open(path, 'rb') as f:
             img = Image.open(f)
             return img.convert('L')
-
-
