@@ -1,11 +1,9 @@
-# The edge code refers to 'Non-Local Deep Features for Salient Object Detection', CVPR 2017.
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 import numpy as np
-
-# fy = Variable(torch.from_numpy(fy)).cuda()
 
 class AvgMeter(object):
     def __init__(self):
