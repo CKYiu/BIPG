@@ -1,10 +1,18 @@
 # BIPG
 
 Code repository for our paper “Boundary Information Progressive Guidance
-Network for Salient Object Detection”, submitted to IEEE Transactions on Multimedia.
+Network for Salient Object Detection”, accepted by IEEE Transactions on Multimedia.
+
+## Prerequisites
+- [Pytorch 1.7](http://pytorch.org/)
+
 
 ## Code
-The code will be uploaded soon.
+### test
+-Please download the ResNet-50 ([pretrained backbone](https://download.pytorch.org/models/resnet50-19c8e357.pth)) into `PyTorch Pretrained\ResNet` folder
+
+-Please download the pretrained model for BIPG into `model` folder, which can be found at ([Baidu Netdisk](https://pan.baidu.com/s/1KHbTmHm_0VY8eCc-R6SDHg ) (code:sysu) or [Google Drive](https://drive.google.com/file/d/1cJzwzeXJPB5G2IOccbX5rIRu56zykL5C/view?usp=sharing))
+
 
 ## Quantitative Performance
 |       | F_measure (max) | F_measure (avg) | weight F_measure | S_measure | E_measure | MAE|
@@ -17,3 +25,5 @@ The code will be uploaded soon.
 
 ## Saliency maps
 The saliency maps produced by our network can be found at [Baidu Netdisk](https://pan.baidu.com/s/1lwk7xPFshcWfhaTj-ZfLVA) (code:bipg) or [Google Drive](https://drive.google.com/file/d/1RFUL_NrHX3_NR0GLj2sTi0R3nNTIyL1F/view?usp=sharing).
+
+
